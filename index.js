@@ -19,6 +19,10 @@ function setListeners(userCard) {
             `%c Удаление пользователя ${userEmail} `,
             'background: red; color: white',
         )
+        userCard.remove();
+        delete storage[userEmail];
+        localStorage.setItem("users", JSON.stringify(storage));
+
     })
 
     changeBtn.addEventListener('click', () => {
