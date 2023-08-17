@@ -109,6 +109,7 @@ function addCard(e) {
     const userCard = document.createElement('div')
     userCard.className = 'user'
     userCard.dataset.email = newEmail.value
+    userCard.innerHTML = createCard(data)
     users.append(userCard)
     setListeners(userCard)
 
@@ -136,7 +137,8 @@ function clearLocalStorage() {
 }
 
 // Добавление слушателей на кнопки добавления и очистки
-add.addEventListener('click', addCard)
+add.addEventListener('click', addCard);
+
 clear.addEventListener('click', clearLocalStorage)
 
 // При загрузке страницы перерисовываются карточки пользователей
