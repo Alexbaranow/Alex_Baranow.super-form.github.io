@@ -30,9 +30,31 @@ function setListeners(userCard) {
             `%c Изменение пользователя ${userEmail} `,
             'background: green; color: white',
         )
-    })
-}
+        
+        const newNameInput = document.querySelector('#name')
+        const newSecondNameInput = document.querySelector('#secondName')
+        const newEmailInput = document.querySelector('#email')
+        const name = userCard.querySelector('.user-info p:first-child').textContent;
+        const secondName = userCard.querySelector('.user-info p:nth-child(2)').textContent;
+        const email = userCard.dataset.email;
 
+        const data = {
+            name: name,
+            secondName: secondName,
+            email: email,
+        };
+        
+        changeMyInputs(data, newNameInput, newSecondNameInput, newEmailInput)
+       
+    })
+    
+}
+function changeMyInputs(data, newNameInput, newSecondNameInput, newEmailInput) {
+        newNameInput.value = data.name
+        newSecondNameInput.value = data.secondName
+        // if (newEmailInput.value !== data.email)
+        newEmailInput.value = data.email
+        }
 /**
  * Функция создания карточки пользователя
  * @param {Object} data - объект с данными пользователя
@@ -100,8 +122,16 @@ function addCard(e) {
     ) {
         resetInputs(newName, newSecondName, newEmail)
         return
-    }
+    } 
 
+    if (JSON.parse(localStorage.getItem('users'))[newEmail.value]) {
+        const needIndex = document.querySelector(`[data-email='${newEmail.value}']`);
+        const changeName = needIndex.querySelector(".user-info");
+        changeName.querySelector("p:first-child").textContent = newName.value;
+        changeName.querySelector("p:nth-child(2)").textContent = newSecondName.value;
+        return
+    } 
+    
     const data = {
         name: newName.value,
         secondName: newSecondName.value,
@@ -123,6 +153,7 @@ function addCard(e) {
 
     console.log(storage)
 }
+
 
 /**
  * Функция очистки полей ввода
